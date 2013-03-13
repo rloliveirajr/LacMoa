@@ -90,10 +90,17 @@ private static final long serialVersionUID = 4740958383832856257L;
 		
 		double[] probs = new double[wekaInstance.numClasses()];
 		
+		double normalizationFactor = 0.0;
+		
 		for(int i = 0; i < wekaInstance.numClasses(); i++){
-			probs[i] = ((probsWindow1[i] + probsWindow2[i])) / 2;
+				probs[i] = (probsWindow1[i] + probsWindow2[i])/2.0;
+				normalizationFactor = normalizationFactor + probs[i];
 		}
-				
+		
+		for(int i = 0; i < wekaInstance.numClasses(); i++){
+			probs[i] = probs[i]/normalizationFactor;
+		}
+
 		return probs;
 	}
 

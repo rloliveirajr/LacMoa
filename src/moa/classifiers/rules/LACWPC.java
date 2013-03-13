@@ -89,62 +89,28 @@ private static final long serialVersionUID = 4740958383832856257L;
 			}
 		}
 		
-//		for(int i = 0; i < trainingInstances.length(); i++){
-//			LACInstance inst = trainingInstances.getInstance(i);
-//			List<Integer> features = inst.getIndexedFeatures();
-//			int clazz = inst.getIndexedClass();
-//						
-//			//Rules coverage
-//			for(int r = 0; r < previousRules.size(); r++){
-//			
-//				LACRule rule = previousRules.get(r);
-//				List<Integer> ruleFeatures = rule.getFeaturesIndexed();
-//				int ruleClass = rule.getClassIndex();
-//				
-//				if(clazz == ruleClass){
-//					boolean insert = true;
-//					for(int f = 0; f < ruleFeatures.size(); f++){
-//						int ruleFeature = ruleFeatures.get(f);
-//						int pos = Collections.binarySearch(features, ruleFeature);
-//						
-//						if(pos < 0){
-//							insert = false;
-//							break;
-//						}
-//					}
-//				}
-//			}
-//			
-//			
-//		}
-		
-		if(removed.size() > 0){
-			for(Integer i : removed){
-				LACInstance inst = trainingInstances.getInstance(i);
-				instancesRemoved.add(inst.toString());
-			}
+		for(Integer i : removed){
+			LACInstance inst = trainingInstances.getInstance(i);
+			instancesRemoved.add(inst.toString());
 		}
 		
-		
-		if(selected.size() > 0){
-			Set<String> classes = new HashSet<String>();
-			for(Integer i : selected){
-				LACInstance inst = newTraining.createNewTrainingInstance();
+		for(Integer i : selected){
+			LACInstance inst = newTraining.createNewTrainingInstance();
 
-				List<Integer> featuresIndexed = trainingInstances.getInstance(i).getIndexedFeatures();
-				String classLabel = trainingInstances.getInstance(i).getHiddenClazz().getLabel();
-				
-				for(Integer f : featuresIndexed){
-					LACFeature feature = trainingInstances.getFeatureByIndex(f);
-					inst.addFeature(feature.getLabel());
-				}
-				classes.add(classLabel);
-				inst.setClass(classLabel);	
+			List<Integer> featuresIndexed = trainingInstances.getInstance(i).getIndexedFeatures();
+			String classLabel = trainingInstances.getInstance(i).getHiddenClazz().getLabel();
+			
+			for(Integer f : featuresIndexed){
+				LACFeature feature = trainingInstances.getFeatureByIndex(f);
+				inst.addFeature(feature.getLabel());
 			}
-						
-			trainingInstances = null;
-			trainingInstances = newTraining;
+
+			inst.setClass(classLabel);	
 		}
+					
+		trainingInstances = null;
+		trainingInstances = newTraining;
+
 
 		trainingInstances.considerFeaturePosition = considerFeaturePositions;
 		

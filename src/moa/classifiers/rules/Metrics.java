@@ -71,15 +71,15 @@ public class Metrics {
 	}
 	
 	double[] getMetrics(){
-		double[] metrics = new double[2];
+		double[] metrics = new double[7];
 		metrics[0] = confidence();
 		metrics[1] = support();
 //		metrics[2] = addedValue();
-//		metrics[3] = certainty();
-//		metrics[2] = yulesQ();
-//		metrics[3] = yulesY();
-//		metrics[6] = strengthScore();
-//		metrics[7] = weightedRelativeConfidence();
+		metrics[2] = certainty();
+		metrics[3] = yulesQ();
+		metrics[4] = yulesY();
+		metrics[5] = strengthScore();
+		metrics[6] = weightedRelativeConfidence();
 		
 		return metrics;
 	}
